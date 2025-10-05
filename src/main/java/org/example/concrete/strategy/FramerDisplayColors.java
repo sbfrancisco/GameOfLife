@@ -1,5 +1,6 @@
 package org.example.concrete.strategy;
 
+import org.example.StatsGameOfLife;
 import org.example.board.Board;
 import org.example.cells.Cell;
 import org.example.interfaces.StrategyDisplay;
@@ -57,6 +58,7 @@ import java.awt.*;
                 default: return Color.BLACK; // color por defecto
             }
         }
+
     }
 
 

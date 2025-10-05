@@ -1,47 +1,40 @@
 package org.example;
 import org.example.board.Board;
 import org.example.cells.Cell;
-import org.example.concrete.strategy.*;
 import org.example.interfaces.Rule;
 import org.example.interfaces.StrategyDisplay;
+import org.example.interfaces.Subject;
 import org.example.observers.observers.Observer;
-import org.example.observers.subject.Subject;
-
+import org.example.types.Position;
+import org.example.GeneratePatternsGameOfLife;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameOfLife implements Subject {
+public class ModelGameOfLife implements Subject {
+    GeneratePatternsGameOfLife gpgol = new GeneratePatternsGameOfLife();
     StatsGameOfLife stats;
     List<Observer> observers;
     Board board;
     Rule rule;
     StrategyDisplay strategyDisplay;
 
-    public GameOfLife(Board board, Rule rule) {
-        this.observers = new ArrayList<Observer>();
-        this.board = board;
+    public ModelGameOfLife(Rule rule) {
+        initializeBoard();
+        gpgol.getBoardWithPatternOne(board);
+        this.observers = new ArrayList<>();
         this.rule = rule;
-        initializeGame();
-        setStrategyDisplay(new BlackAliveWhiteDeadDisplay());
+        this.stats = new StatsGameOfLife();
     }
-
-    private void initializeGame(){
-        stats = new StatsGameOfLife();
-    }
-
-    public void setStrategyDisplay(StrategyDisplay strategyDisplay) {
-        this.strategyDisplay = strategyDisplay;
-    }
-
-    public void display() throws InterruptedException {
-        strategyDisplay.display(board);
+    public void initializeBoard(){
+        board = new Board(25,25);
     }
 
     public void computeNextGeneration() {
         Board next = getEmptyBoard();
         for (int row = 0; row < board.row; row++) {
             for (int col = 0; col < board.col; col++) {
-                processCell(row,col,next);
+                Position pos = new Position(row, col);
+                processCell(pos, next);
             }
         }
         stats.registerNextGeneration();
@@ -52,9 +45,9 @@ public class GameOfLife implements Subject {
         resetStatsOfGame();
     }
 
-    private void processCell(int row, int col, Board board) {
-        Cell cell = rule.checkRule(row, col, board);
-        board.setCell(row, col, cell);
+    private void processCell(Position pos, Board nextBoard) {
+        Cell cell = rule.checkRule(pos, board);
+        nextBoard.setCell(pos, cell);
         stats.collectCellInfo(cell);
     }
 
@@ -87,5 +80,6 @@ public class GameOfLife implements Subject {
     public void removeObserver(Observer o) {
         observers.remove(o);
     }
+
 
 }

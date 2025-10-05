@@ -3,6 +3,7 @@ package org.example.board;
 import org.example.cells.Cell;
 import org.example.interfaces.CellFactory;
 import org.example.concrete.factory.ConcreteCellFactory;
+import org.example.types.Position;
 
 public class Board {
     CellFactory cellFactory;
@@ -18,14 +19,13 @@ public class Board {
         fillBoard();
     }
 
-    public Cell getCell(int row, int col) {
-        return board[row][col];
+    public Cell getCell(Position position) {
+        return board[position.row()][position.col()];
     }
-    public void setCell(int row, int col, Cell cell) {
-        board[row][col] = cell;
-    }
-    public boolean isCellAlive(int row, int col){
-        return board[row][col].getState();
+
+    public void setCell(Position position, Cell cell) { board[position.row()][position.col()] = cell; }
+    public boolean isCellAlive(Position position){
+        return getCell(position).getState();
     }
     private void fillBoard() {
         for (int row = 0; row < board.length; row++) {
@@ -35,8 +35,8 @@ public class Board {
         }
     }
 
-    public boolean isValidCell(int row, int col) {
-        return (row > 0 && row < board.length && col > 0 && col < board[0].length);
+    public boolean isValidCell(Position position) {
+        return (position.row() > 0 && position.row() < board.length && position.col() > 0 && position.col() < board[0].length);
     }
 
     public Cell[][] getBoard() {

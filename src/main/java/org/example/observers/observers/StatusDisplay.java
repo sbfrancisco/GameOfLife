@@ -1,26 +1,26 @@
 package org.example.observers.observers;
 
-import org.example.GameOfLife;
+import org.example.ModelGameOfLife;
 import org.example.StatsGameOfLife;
 
 public class StatusDisplay implements Observer, DisplayStats {
-    GameOfLife game;
+    ModelGameOfLife game;
     int cell_red = 0;
     int cell_white = 0;
     int cell_blue = 0;
     int cell_dead = 0;
 
-    public StatusDisplay(GameOfLife game) {
+    public StatusDisplay(ModelGameOfLife game) {
         this.game = game;
         game.registerObserver(this);
     }
-
     @Override
-    public void update(StatsGameOfLife game) {
-     cell_red = game.getCellRed();
-     cell_white = game.getCellWhite();
-     cell_blue = game.getCellBlue();
-     cell_dead = game.getCellDead();
+    public void update(Object game) {
+    StatsGameOfLife stats = (StatsGameOfLife) game;
+     cell_red = stats.getCellRed();
+     cell_white = stats.getCellWhite();
+     cell_blue = stats.getCellBlue();
+     cell_dead = stats.getCellDead();
      display();
     }
 

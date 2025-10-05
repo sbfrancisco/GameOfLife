@@ -4,6 +4,7 @@ import org.example.board.Board;
 import org.example.cells.Cell;
 import org.example.concrete.Counter;
 import org.example.interfaces.ColorCounter;
+import org.example.types.Position;
 
 public class StatsGameOfLife {
     int cell_red, cell_white, cell_blue;
@@ -77,24 +78,25 @@ public class StatsGameOfLife {
     public void collectGenerationInfo(Board old_board, Board board) {
         for(int row = 0; row < board.row; row++) {
             for(int col = 0; col < board.col ; col++) {
-                if(cellBorn(old_board,board,row,col)) { rule_birt++; }
-                if(cellSurvive(old_board,board,row,col)) { rule_survive++; }
-                if(cellDead(old_board,board,row,col)) { rule_dead++; }
+                Position position = new  Position(row, col);
+                if(cellBorn(old_board,board,position)) { rule_birt++; }
+                if(cellSurvive(old_board,board,position)) { rule_survive++; }
+                if(cellDead(old_board,board,position)) { rule_dead++; }
                 }
             }
         }
 
 
-    private boolean cellBorn(Board old_board, Board board, int row, int col){
-        return !old_board.isCellAlive(row, col) && board.isCellAlive(row,col);
+    private boolean cellBorn(Board old_board, Board board, Position position){
+        return !old_board.isCellAlive(position) && board.isCellAlive(position);
     }
 
-    private boolean cellSurvive(Board old_board, Board board, int row, int col){
-        return old_board.isCellAlive(row,col) && board.isCellAlive(row,col);
+    private boolean cellSurvive(Board old_board, Board board, Position position){
+        return old_board.isCellAlive(position) && board.isCellAlive(position);
     }
 
-    private boolean cellDead(Board old_board, Board board, int row, int col){
-        return old_board.isCellAlive(row,col) && !board.isCellAlive(row,col);
+    private boolean cellDead(Board old_board, Board board, Position position){
+        return old_board.isCellAlive(position) && !board.isCellAlive(position);
     }
 
     private void incrementCountCellDead(){

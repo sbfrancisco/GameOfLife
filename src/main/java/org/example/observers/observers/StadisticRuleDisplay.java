@@ -1,16 +1,16 @@
 package org.example.observers.observers;
 
-import org.example.GameOfLife;
+import org.example.ModelGameOfLife;
 import org.example.StatsGameOfLife;
 
 public class StadisticRuleDisplay implements Observer, DisplayStats {
-    GameOfLife game;
+    ModelGameOfLife game;
     int goal;
     int rule_birt;
     int rule_dead;
     int rule_survive;
 
-    public StadisticRuleDisplay(GameOfLife game, int goal) {
+    public StadisticRuleDisplay(ModelGameOfLife game, int goal) {
         this.game = game;
         this.goal = goal;
         game.registerObserver(this);
@@ -25,11 +25,12 @@ public class StadisticRuleDisplay implements Observer, DisplayStats {
     }
 
     @Override
-    public void update(StatsGameOfLife game) {
-        this.rule_birt += game.getRuleBirt();
-        this.rule_dead += game.getRuleDead();
-        this.rule_survive += game.getRuleSurvive();
-        if(game.getGenerations() == goal){
+    public void update(Object game) {
+        StatsGameOfLife stats = (StatsGameOfLife) game;
+        this.rule_birt += stats.getRuleBirt();
+        this.rule_dead += stats.getRuleDead();
+        this.rule_survive += stats.getRuleSurvive();
+        if(stats.getGenerations() == goal){
             display();
         }
     }

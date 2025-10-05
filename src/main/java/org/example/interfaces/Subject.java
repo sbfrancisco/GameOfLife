@@ -1,4 +1,4 @@
-package org.example.observers.subject;
+package org.example.interfaces;
 
 import org.example.observers.observers.Observer;
 

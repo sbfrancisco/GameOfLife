@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.board.Board;
 import org.example.concrete.strategy.FramerDisplayColors;
+import org.example.concrete.strategy.StandardDisplay;
 import org.example.interfaces.StrategyDisplay;
 import org.example.observers.observers.Observer;
 
@@ -13,6 +14,7 @@ public class ViewGameOfLife implements Observer {
     StrategyDisplay view;
     ControllerGameOfLife controller;
     ModelGameOfLife model;
+    boolean isEnd = false;
 
     public ViewGameOfLife(ControllerGameOfLife controller, ModelGameOfLife model) {
         this.controller = controller;
@@ -21,7 +23,7 @@ public class ViewGameOfLife implements Observer {
     }
 
     public void initialize() {
-        view = new FramerDisplayColors();
+        view = new StandardDisplay();
     }
 
     public void computeMenu(){
@@ -32,7 +34,7 @@ public class ViewGameOfLife implements Observer {
     }
 
     private boolean endGame(){
-        return lastOptionUsed == optionThatsEndsTheGame;
+        return isEnd;
     }
     private void showOptions() {
         System.out.println("Ingrese la opcion que desee");
@@ -49,6 +51,8 @@ public class ViewGameOfLife implements Observer {
                 display();
             } else if (option.equals("2")) {
                 controller.computeNextGeneration();
+            } else if(option.equals("3")){
+                isEnd = true;
             }
         }
     }

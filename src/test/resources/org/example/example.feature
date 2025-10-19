@@ -1,5 +1,43 @@
-Feature: Suma de números
-  Scenario: Sumar dos enteros
-    Given tengo los números 2 y 3
-    When los sumo
-    Then el resultado debe ser 5
+Feature: Estado inicial del tablero
+
+  Scenario: Inicializar el juego con un estado inicial y computar una generacion
+    Given este estado inicial del tablero
+      """
+      . . . . .
+      . . B . .
+      . R R B .
+      . . R . .
+      . . . . .
+      """
+    And el juego fue inicializado con la regla "inmigration"
+    When se computa una nueva generacion
+    Then el tablero debería ser
+    """
+    . . . . .
+    . R B B .
+    . R . B .
+    . R R R .
+    . . . . .
+    """
+
+  Scenario: Inicializar el juego con un estado inicial
+    Given este estado inicial del tablero
+      """
+      . . . . .
+      . . B . .
+      . R R B .
+      . . R . .
+      . . . . .
+      """
+    And el juego fue inicializado con la regla "inmigration"
+    Then el tablero debería ser
+    """
+    . . . . .
+    . . B . .
+    . R R B .
+    . . R . .
+    . . . . .
+    """
+
+
+

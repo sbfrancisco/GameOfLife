@@ -1,0 +1,43 @@
+# === Gradle ===
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Archivos de lock y cache de Gradle
+**/*.lock
+**/*.bin
+
+# === IntelliJ IDEA ===
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# === Archivos de compilación Java ===
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# === Archivos temporales del sistema ===
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+
+# === Reportes de build y test ===
+build/reports/
+build/test-results/
+build/tmp/
+build/resources/
+
+# === Archivos de Cucumber ===
+build/reports/cucumber.html
+
+# === Configuración específica de usuario ===
+*.userprefs
+
+# === Archivos de entorno o configuración local ===
+.env

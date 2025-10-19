@@ -9,12 +9,15 @@ import org.example.observers.observers.Observer;
 import org.example.observers.observers.StadisticDisplay;
 import org.example.observers.observers.StadisticRuleDisplay;
 import org.example.observers.observers.StatusDisplay;
+import org.example.ruleFactory.InmigrationRuleFactory;
+import org.example.ruleFactory.RuleFactory;
 import org.example.rules.Inmigration;
 import org.example.types.Position;
 
 public class   Main {
     public static void main(String[] args) throws InterruptedException {
-        Rule rule = new Inmigration();
+        RulesProvider rulesProvider = new RulesProvider();
+        Rule rule = rulesProvider.getRule("inmigration");
         ModelGameOfLife gol = new ModelGameOfLife(rule);
         Observer stadisticDisplay = new StadisticDisplay(gol, 10);
         Observer stadisticRuleDisplay = new StadisticRuleDisplay(gol, 10);

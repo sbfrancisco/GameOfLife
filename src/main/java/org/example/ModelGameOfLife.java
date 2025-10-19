@@ -17,7 +17,11 @@ public class ModelGameOfLife implements Subject {
     Board board;
     Rule rule;
     StrategyDisplay strategyDisplay;
-
+    //  debugging constructor
+    public ModelGameOfLife(){
+        this.stats = new StatsGameOfLife();
+        this.observers = new ArrayList<>();
+    }
     public ModelGameOfLife(Rule rule) {
         initializeBoard();
         gpgol.getBoardWithPatternOne(board);
@@ -26,7 +30,7 @@ public class ModelGameOfLife implements Subject {
         this.stats = new StatsGameOfLife();
     }
     public void initializeBoard(){
-        board = new Board(25,25);
+        board = new Board(5,5);
     }
 
     public void computeNextGeneration() {
@@ -57,6 +61,14 @@ public class ModelGameOfLife implements Subject {
 
     private void setNextGeneration(Board board){
         this.board = board;
+    }
+
+    public void setBoard(Board board){
+        this.board = board;
+    }
+
+    public void setRule(Rule rule){
+        this.rule = rule;
     }
 
     private void resetStatsOfGame() {

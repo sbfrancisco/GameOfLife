@@ -1,25 +1,43 @@
 package org.example;
 
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.*;
+import org.example.board.Board;
+import org.example.interfaces.Rule;
+import org.example.utils.BoardUtils;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StepDefinitions {
-
-    int a, b, resultado;
-
-    @Given("tengo los números {int} y {int}")
-    public void tengo_los_numeros(int x, int y) {
-        a = x;
-        b = y;
+    ModelGameOfLife gameOfLife;
+    RulesProvider rulesProvider;
+    Rule rule;
+    public StepDefinitions(){
+        gameOfLife = new ModelGameOfLife();
+        rulesProvider = new RulesProvider();
     }
 
-    @When("los sumo")
-    public void los_sumo() {
-        resultado = a + b;
+    @Given("este estado inicial del tablero")
+    public void esteEstadoInicialDelTablero(String tablero) {
+        Board board = BoardUtils.loadBoardFromText(tablero);
+        gameOfLife.setBoard(board);
     }
 
-    @Then("el resultado debe ser {int}")
-    public void el_resultado_debe_ser(int esperado) {
-        assertEquals(esperado, resultado);
+    @And("el juego fue inicializado con la regla {string}")
+    public void elJuegoFueInicializadoConLaRegla(String ruleExpected) {
+        Rule rule = rulesProvider.getRule(ruleExpected);
+        gameOfLife.setRule(rule);9
+    }
+
+    @Then("el tablero debería ser")
+    public void elTableroDeberíaSer(String expected) {
+        Board actualBoard = gameOfLife.getBoard();
+        String result = BoardUtils.boardToText(actualBoard);
+        assertEquals(expected, result);
+    }
+
+    @When("se computa una nueva generacion")
+    public void seComputaUnaNuevaGeneracion() {
+        gameOfLife.computeNextGeneration();
     }
 }

@@ -12,7 +12,7 @@ import org.example.observers.observers.StatusDisplay;
 import org.example.rules.Inmigration;
 import org.example.types.Position;
 
-public class Main {
+public class   Main {
     public static void main(String[] args) throws InterruptedException {
         Rule rule = new Inmigration();
         ModelGameOfLife gol = new ModelGameOfLife(rule);

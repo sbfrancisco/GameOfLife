@@ -11,7 +11,7 @@ Feature: Estado inicial del tablero
       """
     And el juego fue inicializado con la regla "inmigration"
     When se computa una nueva generacion
-    Then el tablero debería ser
+    Then el tablero deberia ser
     """
     . . . . .
     . R B B .
@@ -30,7 +30,7 @@ Feature: Estado inicial del tablero
       . . . . .
       """
     And el juego fue inicializado con la regla "inmigration"
-    Then el tablero debería ser
+    Then el tablero deberia ser
     """
     . . . . .
     . . B . .

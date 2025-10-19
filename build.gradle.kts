@@ -1,5 +1,9 @@
+import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
+import org.gradle.testing.jacoco.tasks.JacocoReport
+
 plugins {
     id("java")
+    id("jacoco") // activa JaCoCo
 }
 
 java {
@@ -21,7 +25,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-suite-engine:1.10.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    // JUnit Jupiter (por si tenés tests normales)
+    // JUnit Jupiter
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 
@@ -34,5 +38,22 @@ tasks.test {
     useJUnitPlatform()
     testLogging {
         events("passed", "skipped", "failed")
+    }
+    // genera el reporte de cobertura al finalizar los tests
+    finalizedBy("jacocoTestReport")
+}
+
+// configuración de la extensión de JaCoCo (correcto para Kotlin DSL)
+configure<JacocoPluginExtension> {
+    toolVersion = "0.8.12"
+}
+
+// configuración del reporte de JaCoCo
+tasks.named<JacocoReport>("jacocoTestReport") {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(true)
+        csv.required.set(false)
+        html.outputLocation.set(layout.buildDirectory.dir("reports/jacoco"))
     }
 }

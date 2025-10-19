@@ -26,11 +26,11 @@ public class StepDefinitions {
     @And("el juego fue inicializado con la regla {string}")
     public void elJuegoFueInicializadoConLaRegla(String ruleExpected) {
         Rule rule = rulesProvider.getRule(ruleExpected);
-        gameOfLife.setRule(rule);9
+        gameOfLife.setRule(rule);
     }
 
-    @Then("el tablero debería ser")
-    public void elTableroDeberíaSer(String expected) {
+    @Then("el tablero deberia ser")
+    public void elTableroDeberiaSer(String expected) {
         Board actualBoard = gameOfLife.getBoard();
         String result = BoardUtils.boardToText(actualBoard);
         assertEquals(expected, result);
